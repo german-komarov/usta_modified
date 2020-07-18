@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,12 +25,17 @@ public class MainController {
 
 
     @GetMapping
-    @ResponseBody
-    public Page<Person> mainPage(@RequestParam(defaultValue = "multiple",name = "category") String category, @PageableDefault (size=20,sort={"id"},direction = Sort.Direction.ASC) Pageable pageable, Model model)
+    public String mainPage(@RequestParam(defaultValue = "multiple",name = "category") String category, @PageableDefault (size=20,sort={"id"},direction = Sort.Direction.ASC) Pageable pageable, Model model)
     {
-        Page<Person> people=personService.getPeopleByCategory(category,pageable);
-        model.addAttribute("num",people.getTotalElements());
-        return people;
+
+        return "main";
+    }
+
+    @GetMapping("/main")
+    @ResponseBody
+    public String hello(@AuthenticationPrincipal Person person)
+    {
+        return "Hello "+person.getName();
     }
 
 
