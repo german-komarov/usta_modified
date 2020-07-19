@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,7 +25,7 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="main.html">USTA.AZ</a>
+        <a class="navbar-brand" href="/">USTA.AZ</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -57,7 +58,7 @@
                 Kateqoriya
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Usta1</a>
+                <a class="dropdown-item" href="/?category=santexnik">Santexnik</a>
                 <a class="dropdown-item" href="#">Usta2</a>
                 <!-- <div class="dropdown-divider"></div> -->
                 <a class="dropdown-item" href="#">Usta3</a>
@@ -80,55 +81,55 @@
         <section class="col-md-12 col-sm-12 col-12">
           <div class="row">
             <div class="col-md-4 col-sm-6 col-12 mb-4">
-              <div class="card">
+              <div th:each="left:${listLeft}" class="card">
                 <img
                   class="card-img-top img-responsive rounded-circle text-center w-50 h-50 mt-2 mx-auto"
-                  src="../shared/person.jpg"
+                  th:src="@{'data:image/jpeg;base64,'+${left.avatar}}"
                   alt="Card image"
                 />
                 <div class="card-body">
-                  <h5 class="card-title">Ad Soyad</h5>
+                  <h5 class="card-title" th:text="${left.name}+' '+${left.surname}"></h5>
                   <div class="card-text">
-                    <div>Santexnik</div>
-                    <p>Telefon nömrəsi</p>
+                    <div th:text="${left.category}"></div>
+                    <p th:text="${left.phoneNumber}"></p>
                   </div>
-                  <a href="details.html" class="btn btn-primary">Ətraflı</a>
+                  <a th:href="@{'/details/'+${left.id}}" class="btn btn-primary">Ətraflı</a>
                 </div>
               </div>
             </div>
 
             <div class="col-md-4 col-sm-6 col-12 mb-4">
-              <div class="card">
+              <div th:each="middle:${listMiddle}" class="card">
                 <img
                   class="card-img-top img-responsive rounded-circle text-center w-50 h-50 mt-2 mx-auto"
-                  src="../shared/person.jpg"
+                  th:src="@{'data:image/jpeg;base64,'+${middle.avatar}}"
                   alt="Card image"
                 />
                 <div class="card-body">
-                  <h5 class="card-title">Ad Soyad</h5>
+                  <h5 class="card-title" th:text="${middle.name}+' '+${middle.surname}"></h5>
                   <div class="card-text">
-                    <div>Santexnik</div>
-                    <p>Telefon nömrəsi</p>
+                    <div th:text="${middle.category}"></div>
+                    <p th:text="${middle.phoneNumber}"></p>
                   </div>
-                  <a href="details.html" class="btn btn-primary">Ətraflı</a>
+                  <a th:href="@{'/details/'+${middle.id}}" class="btn btn-primary">Ətraflı</a>
                 </div>
               </div>
             </div>
 
             <div class="col-md-4 col-sm-6 col-12 mb-4">
-              <div class="card">
+              <div class="card" th:each="right:${listRight}">
                 <img
                   class="card-img-top img-responsive rounded-circle text-center w-50 h-50 mt-2 mx-auto"
-                  src="../shared/person.jpg"
+                  th:src="@{'data:image/jpeg;base64,'+${right.avatar}}"
                   alt="Card image"
                 />
                 <div class="card-body">
-                  <h5 class="card-title">Ad Soyad</h5>
+                  <h5 class="card-title" th:text="${right.name}+' '+${right.surname}"></h5>
                   <div class="card-text">
-                    <div>Santexnik</div>
-                    <p>Telefon nömrəsi</p>
+                    <div th:text="${right.category}"></div>
+                    <p th:text="${right.phoneNumber}"></p>
                   </div>
-                  <a href="details.html" class="btn btn-primary">Ətraflı</a>
+                  <a th:href="@{'/details/'+${right.id}}" class="btn btn-primary">Ətraflı</a>
                 </div>
               </div>
             </div>

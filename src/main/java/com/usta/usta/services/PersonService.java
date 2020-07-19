@@ -45,6 +45,15 @@ public class PersonService implements UserDetailsService {
         return person;
     }
 
+    public Page<Person> getAllMasters(Pageable pageable)
+    {
+        return personRepository.findAll(pageable);
+    }
+
+    public Person getPersonById(Long id)
+    {
+        return personRepository.findById(id).orElse(null);
+    }
     public Person getPersonByUsername(String username)
     {
         return personRepository.findByUsername(username);
@@ -120,5 +129,49 @@ public class PersonService implements UserDetailsService {
     public Page<Person> getPeopleByCategory(String category, Pageable pageable)
     {
         return personRepository.findByCategory(category,pageable);
+    }
+
+    public String sendRestoringMail(String email,String purposeOfTheEmailMessage) {
+        Person person=this.getPersonByEmail(email);
+        if(person==null)
+        {
+            return "There is no account with this email";
+        }
+
+        person.setActivationCode(UUID.randomUUID().toString());
+        this.savePerson(person);
+        String message= String.format("Hello %s.\n\nWelcome to usta.az. " +
+                        "Go to this reference to %s https://usta.az/restore/password/new/password/%s\n\nIf you didn't try to register, please just ignore this message",
+                person.getUsername(),purposeOfTheEmailMessage,person.getActivationCode());
+        mailSender.send(person.getEmail(),"Registration",message);
+
+        return "OK";
+    }
+
+    public String checkActivationCodeForRestoringPassword(String activationCode) {
+
+        Person person=this.getPersonByActivationCode(activationCode);
+        if(person==null)
+        {
+            return "DENIED";
+        }
+
+        return "OK";
+
+
+    }
+
+    public String restorePassword(String activationCode,String password, String passwordConfirm) {
+        if(!password.equals(passwordConfirm))
+        {
+            return "Passwords are different";
+        }
+
+        Person person=this.getPersonByActivationCode(activationCode);
+        person.setActivationCode("");
+        person.setPassword(bCryptPasswordEncoder.encode(password));
+        this.savePerson(person);
+        return "OK";
+
     }
 }

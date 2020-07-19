@@ -40,11 +40,35 @@ public class RegistrationController {
     }
 
     @GetMapping("/activate/{activationCode}")
-    @ResponseBody
-    public String doActivate(@PathVariable String activationCode)
+    public String doGetActivate(@PathVariable String activationCode,Model model)
     {
-        return personService.activate(activationCode);
-
+        personService.activate(activationCode);
+        model.addAttribute("registered in USTA.AZ");
+        return "successfully";
 
     }
+
+    @GetMapping("/send/mail/again")
+    private String doGetSendMailAgain()
+    {
+        return "email_form";
+    }
+
+    @PostMapping("/send/mail/again")
+    public String doPostSendMailAgain(@RequestParam String email, Model model)
+    {
+        String response=personService.sendRestoringMail(email,"activate your account");
+        if(!response.equals("OK"))
+        {
+            model.addAttribute("error",response);
+            return "email_form";
+        }
+
+        model.addAttribute("email",email);
+        return "email_was_sent";
+    }
+
+
+
+
 }
