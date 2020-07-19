@@ -44,7 +44,8 @@ public class RegistrationController {
     {
         personService.activate(activationCode);
         model.addAttribute("registered in USTA.AZ");
-        return "successfully";
+        //return "successfully";
+        return "redirect:/";
 
     }
 
