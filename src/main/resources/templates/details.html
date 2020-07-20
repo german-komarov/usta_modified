@@ -15,6 +15,12 @@
       rel="stylesheet"
     />
     <title>Ətraflı</title>
+
+    <style>
+      body {
+        font-family: "Cabin", sans-serif;
+      }
+    </style>
   </head>
   <body>
     <div class="container-fluid">
@@ -25,15 +31,35 @@
           <hr />
           <div class="card border-0">
             <img
+<<<<<<< HEAD
               class="card-img-top img-responsive rounded-circle text-center w-25 h-25 mt-2 mx-auto"
               th:src="@{'data:image/jpeg;base64,'+${master.avatar}}"
+=======
+              class="card-img-top img-responsive rounded-circle text-center mt-2 mx-auto"
+              src="../shared/person.jpg"
+>>>>>>> f27c265c2381baccd1ffffe1d3973824902f4bd2
               alt="Card image"
+              style="width: 40%;"
             />
             <div class="card-body">
               <h5 class="card-title" th:text="${master.name}+' '+${master.surname}"></h5>
               <div class="card-text">
+<<<<<<< HEAD
                 <p th:text="${master.category}"></p>
                 <p th:text="${master.description}">
+=======
+                <p>Santexnik</p>
+                <p>Telefon nömrəsi</p>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Exercitationem blanditiis culpa magni eos velit nisi aut
+                  doloribus atque minima voluptas obcaecati eius quasi esse
+                  molestiae incidunt, aspernatur nobis deleniti illo?Repellendus
+                  fugiat veniam alias cum laborum officiis animi facilis,
+                  impedit saepe vitae error nisi repudiandae ipsum tempora
+                  asperiores nesciunt eos blanditiis iste nemo ullam sint quas
+                  consectetur commodi? Voluptas, aut!
+>>>>>>> f27c265c2381baccd1ffffe1d3973824902f4bd2
                 </p>
               </div>
             </div>
