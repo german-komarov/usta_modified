@@ -22,6 +22,9 @@
       label {
         font-weight: bold;
       }
+      body {
+        font-family: "Cabin", sans-serif;
+      }
     </style>
   </head>
   <body>
@@ -33,6 +36,9 @@
             <p>Daxil olmaq üçün zəhmət olmasa formu doldurun.</p>
           </div>
           <form action="/login" method="post">
+            <div class="alert alert-danger" role="alert">
+              İstifadəçi adı artıq istifadə olunub!
+            </div>
             <!-- <div th:if="${param.error}">
               <div class="alert1">
                 <strong>Invalid username and password.</strong>
