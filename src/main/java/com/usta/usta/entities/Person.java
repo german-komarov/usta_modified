@@ -25,9 +25,11 @@ public class Person implements UserDetails {
     private Set<Role> roles;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String description;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String avatar;
 
     private String phoneNumber;

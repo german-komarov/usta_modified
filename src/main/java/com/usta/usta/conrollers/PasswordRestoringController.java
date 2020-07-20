@@ -16,17 +16,17 @@ public class PasswordRestoringController {
     @GetMapping
     public String doGet()
     {
-        return "email_form";
+        return "restoring_form";
     }
 
     @PostMapping
     public String doPost(@RequestParam String email, Model model)
     {
-        String response=personService.sendRestoringMail(email,"restore your password");
+        String response=personService.sendRestoringMail(email,"restore your password","/restore/password/new/password/");
         if(!response.equals("OK"))
         {
             model.addAttribute("error",response);
-            return "email_form";
+            return "restoring_form";
         }
 
         model.addAttribute("email",email);
@@ -40,7 +40,7 @@ public class PasswordRestoringController {
         String response=personService.checkActivationCodeForRestoringPassword(activationCode);
         if(!response.equals("OK"))
         {
-            return "denied_page";
+            return "denied";
         }
 
         model.addAttribute("activationCode",activationCode);
@@ -58,7 +58,7 @@ public class PasswordRestoringController {
             return "new_password";
         }
         model.addAttribute("message","restored your password");
-        return "successfully";
+        return "success";
     }
 
 

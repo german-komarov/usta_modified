@@ -82,10 +82,7 @@ public class PersonService implements UserDetailsService {
 
 
     public String register(Person person, MultipartFile avatarFile) throws IOException {
-        if(!person.getPassword().equals(person.getPasswordConfirm()))
-        {
-            return "Passwords are not equal";
-        }
+
 
         if(this.getPersonByUsername(person.getUsername())!=null)
         {
@@ -95,6 +92,11 @@ public class PersonService implements UserDetailsService {
         if(this.getPersonByEmail(person.getEmail())!=null)
         {
             return "Email is taken";
+        }
+
+        if(!person.getPassword().equals(person.getPasswordConfirm()))
+        {
+            return "Passwords are not equal";
         }
 
         person.setActivated(false);
@@ -131,7 +133,7 @@ public class PersonService implements UserDetailsService {
         return personRepository.findByCategory(category,pageable);
     }
 
-    public String sendRestoringMail(String email,String purposeOfTheEmailMessage) {
+    public String sendRestoringMail(String email,String purposeOfTheEmailMessage,String uri) {
         Person person=this.getPersonByEmail(email);
         if(person==null)
         {
@@ -141,8 +143,8 @@ public class PersonService implements UserDetailsService {
         person.setActivationCode(UUID.randomUUID().toString());
         this.savePerson(person);
         String message= String.format("Hello %s.\n\nWelcome to usta.az. " +
-                        "Go to this reference to %s https://usta.az/restore/password/new/password/%s\n\nIf you didn't try to register, please just ignore this message",
-                person.getUsername(),purposeOfTheEmailMessage,person.getActivationCode());
+                        "Go to this reference to %s https://usta.az%s%s\n\nIf you didn't try to register, please just ignore this message",
+                person.getUsername(),purposeOfTheEmailMessage,uri,person.getActivationCode());
         mailSender.send(person.getEmail(),"Registration",message);
 
         return "OK";

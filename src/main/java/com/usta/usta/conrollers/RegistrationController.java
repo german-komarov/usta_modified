@@ -29,7 +29,7 @@ public class RegistrationController {
         String response=personService.register(person,avatarFile);
         if(response.equals("OK"))
         {
-            return "activate_account";
+            return "email_was_sent";
         }
         else
         {
@@ -42,10 +42,12 @@ public class RegistrationController {
     @GetMapping("/activate/{activationCode}")
     public String doGetActivate(@PathVariable String activationCode,Model model)
     {
-        personService.activate(activationCode);
+        if(!personService.activate(activationCode).equals("OK"))
+        {
+            return "denied";
+        }
         model.addAttribute("registered in USTA.AZ");
-        //return "successfully";
-        return "redirect:/";
+        return "success";
 
     }
 
@@ -58,11 +60,11 @@ public class RegistrationController {
     @PostMapping("/send/mail/again")
     public String doPostSendMailAgain(@RequestParam String email, Model model)
     {
-        String response=personService.sendRestoringMail(email,"activate your account");
+        String response=personService.sendRestoringMail(email,"activate your account","/registration/activate/");
         if(!response.equals("OK"))
         {
             model.addAttribute("error",response);
-            return "email_form";
+            return "activation_email";
         }
 
         model.addAttribute("email",email);
