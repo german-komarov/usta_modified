@@ -176,4 +176,10 @@ public class PersonService implements UserDetailsService {
         return "OK";
 
     }
+
+    public void changeAvatar(Person principal, MultipartFile avatar) throws IOException {
+        Person person=this.getPersonById(principal.getId());
+        person.setActivationCode(Base64.getEncoder().encodeToString(avatar.getBytes()));
+        this.savePerson(person);
+    }
 }
