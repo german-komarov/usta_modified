@@ -30,7 +30,7 @@ public class PasswordRestoringController {
         }
 
         model.addAttribute("email",email);
-        return "email_was_sent";
+        return "restore_email_was_sent";
     }
 
 
