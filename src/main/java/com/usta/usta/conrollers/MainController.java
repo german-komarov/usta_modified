@@ -72,6 +72,32 @@ public class MainController {
         return "OK";
     }
 
+    @GetMapping("/main/change/information")
+    public String doGetChangeInformation(@AuthenticationPrincipal Person person,Model model)
+    {
+        model.addAttribute("person",person);
+        return "edit_page";
+    }
+
+    @PostMapping("/main/change/information")
+    public String doPostChangeInformation(@RequestParam Long id,
+                                          @RequestParam String name,
+                                          @RequestParam String surname,
+                                          @RequestParam String description,
+                                          @RequestParam String city,
+                                          @RequestParam String phoneNumber)
+    {
+        Person person=personService.getPersonById(id);
+        person.setName(name);
+        person.setSurname(surname);
+        person.setDescription(description);
+        person.setCity(city);
+        person.setPhoneNumber(phoneNumber);
+        personService.savePerson(person);
+        return "redirect:/main";
+
+    }
+
 
 
 

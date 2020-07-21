@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin&display=swap"
+      rel="stylesheet"
+    />
+    <title>Edit</title>
+
+    <style>
+      label {
+        font-weight: bold;
+      }
+      body {
+        font-family: "Cabin", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid p-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-9 col-sm-9 col-11">
+          <div class="header text-center">
+            <h1>Edit</h1>
+          </div>
+          <hr />
+          <form
+            action="/main/change/information"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <input id="descriptionForSelect" th:value="${person.id}" hidden readonly>
+            <input name="id" th:value="${person.id}" hidden readonly>
+            <div class="form-group">
+              <label for="name">Ad</label>
+              <input
+                      th:value="${person.name}"
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="surname">Soyad</label>
+              <input
+                      th:value="${person.surname}"
+                type="text"
+                name="surname"
+                id="surname"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="description"
+                >Özünüz haqqında qısa məlumat verin</label
+              >
+              <textarea
+                      th:text="${person.description}"
+                name="description"
+                id="description"
+                class="form-control"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Telefon nömrəsi</label>
+              <input th:value="${person.phoneNumber}" type="text" name="phoneNumber" class="form-control" required/>
+            </div>
+            <div class="form-group">
+              <label>Şəhər</label>
+              <input
+                     th:value="${person.city}" type="text" name="city" class="form-control" required/>
+            </div>
+
+            <button type="submit" class="btn btn-primary float-right" >
+              Qeydiyyat
+            </button>
+            <br />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let submitBtn = document.querySelector("button[type=submit]");
+      // it will disabled if form is not valid
+    </script>
+  </body>
+</html>
